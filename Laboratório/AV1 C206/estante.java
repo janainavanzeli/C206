@@ -27,41 +27,70 @@ public class Estante {
             }
         }
     }
-
+    // porcentagem de livros de cada genero literario
     public void porcentagemGen(){
-        int drama = 0;
-        int suspense = 0;
-        int outrosGen = 0;
-        int all = 0;
+        // Variaveis locais
+        int quantdrama = 0; // quantidade de livros de drama
+        int quantsuspense = 0; // quantidade de livros de suspense
+        int quantoutrosGen = 0; // quantidade de livros de outros generos
+        int total = 0; // total de livros na estante
 
         for (int i = 0; i < livro.length; i++) {
+            // verificando se  i-ésima posição está preenchida
             if(livro[i].genLiterario.equalsIgnoreCase("Drama")){
-                drama++;
+                quantdrama++;
             } else if (livro[i].genLiterario.equalsIgnoreCase("Suspense")) {
-                suspense++;
-            } else if (livro[i].genLiterario.equalsIgnoreCase("Outro")) {
-                outrosGen++;
+                quantsuspense++;
             }
-            all += drama + suspense + outrosGen;
+            total++;
         }
-        System.out.println("Drama: " + (drama / all)*100 + "%");
-        System.out.println("Suspense: " + (suspense / all)*100 + "%");
-        System.out.println("Outros: " + (outrosGen / all)*100 + "%");
+        /* calculo da porcentagem de livros ba estante pelo complemento.
+        Sendo assim temos outros =  - (%livrosdrama+%livrossuspense)
+        */
+        quantoutros = if -(((float)quantsuspense/total)+((float)quantdrama/total));
+        
+        if(quantsuspense !=@ && quantdrama !=@){
+            System.out.println("Drama: " + ((float)quantdrama / total)*100 + "%");
+            System.out.println("Suspense: " + ((float)(quantsuspense / total)*100 + "%");
+            System.out.println("Outros: " + ((float)(quantoutrosGen / total)*100 + "%");
+        }
+        else{
+            System.out.println("Não há livros cadastrados!!");
     }
-
+    
+    // autor que aparece mais vezes
    public void livroMaisEMenosPag(){
-       int maior = 0;
-       int menor = 99999;
+       doubble maior = -1; // armazena o livros com mais páginas cadastrado 
+       doubble menor = 99999; // armazena o livro com menos páginas cadastrado
+       int posmaior = 0; // armazena a posição do livro com mais paginas
+       int posmenor = 0; // armazena a posição do livro com menos paginas
+       
+       // Percorrendo o array para verificar cada uma das posições
        for (int i = 0; i < livro.length; i++) {
-           // Mais páginas
-           if (livro[i].qtdFolhas > maior) {
-               maior = livro[i].qtdFolhas;
-           }
-           // Menos páginas
-           if (livro[i].qtdFolhas < menor){
-               menor = livro[i].qtdFolhas;
-           }
+           // verificando se a posição tem realmente um livro para teste
+           if(livro[i] != null){
+               if(livro[i].qtdFolhas > maior) {
+                   maior = livro[i].qtdFolhas;
+                   posmaior = i;
+               }
+               if(livro[i].qtdFolhas < menor) {
+                   menor = livro[i].qtdFolhas;
+                   posmenor = i;
+               }
+         }
     }
+    if(posmaior ==@ %% posmenor ==@) {
+        System.out.println("Não Há livros na estante!!");
+    }
+    else {
+        System.out.println();
+        System.out.println("Informações do livro com mais páginas: ");
+        livro[posmaior].mostrarInfos();
+        System.out.println();
+        System.out.println("Informações do livro com menos páginas: ");
+        livro[posmenor].mostrarInfor();
+    }
+       
         do {
             System.out.println("1 - Para adicionar um livro na estante");
             System.out.println("2 - Mostrar as informações dos livros que estão na estante");
